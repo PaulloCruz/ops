@@ -38,6 +38,7 @@ export const postPalestrantes = (request, response) => {
       nome,
       expertise,
     ];
+
     conn.query(insertSQL, insertData, (err) => {
       if (err) {
         console.error(err);
@@ -45,6 +46,5 @@ export const postPalestrantes = (request, response) => {
         return;
       }
       response.status(201).json({ message: "palestrante cadastrado com sucesso" });
-    });
-  }
-
+    })
+}
