@@ -10,15 +10,4 @@ const conn = mysql.createPool({
   port: process.env.MYSQL_PORT,
 });
 
-// conn.connect((err) => {
-//   if (err) {
-//     return console.error(err.stack);
-//   }
-//   conn.connect((err) => {
-//     if (err) {
-//       console.log("MYSQL conectado");
-//     }
-//   });
-// });
-
 export default conn;

@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
-  getPalestrantes,
-  postPalestrantes,
+  cadastrarPalestrantes,
+  listarPalestrantes,
 } from "../controllers/palestrantesController.js";
 
 const router = Router();
 
-router.get("/palestrantes", getPalestrantes);
-router.post("/palestrantes", postPalestrantes);
+router.get("/palestrantes", listarPalestrantes);
+router.post("/palestrantes", cadastrarPalestrantes);
 
 export default router;

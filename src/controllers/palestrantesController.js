@@ -1,29 +1,28 @@
 import { response } from "express";
 import conn from "../config/conn.js";
 import { v4 as uuidv4 } from "uuid";
-// criar, listar, atualizar, listar por id
 
-export const getPalestrantes = (request, response) => {
+export const listarPalestrantes = (req, res) => {
   const sql = /*sql*/ `SELECT * FROM palestrantes`;
   conn.query(sql, (err, data) => {
     if (err) {
-      response.status(500).json({ message: "Erro ao buscar palestrantes" });
+      res.status(500).json({ message: "Erro ao buscar palestrantes" });
       return;
     }
     const palestrantes = data;
-    response.status(200).json(palestrantes);
+    res.status(200).json(palestrantes);
   });
 };
 
-export const postPalestrantes = (request, response) => {
-  const { nome, expertise } = request.body;
+export const cadastrarPalestrantes = (req, res) => {
+  const { nome, expertise } = req.body;
 
   if (!nome) {
-    response.status(400).json({ message: "O nome é um campo obrigatório" });
+    res.status(400).json({ message: "O nome é obrigatório" });
     return;
   }
   if (!expertise) {
-    response.status(400).json({ message: "A expertise é um campo obrigatório" });
+    res.status(400).json({ message: "A expertise é obrigatório" });
     return;
   }
     const id = uuidv4();
@@ -31,7 +30,7 @@ export const postPalestrantes = (request, response) => {
     VALUES
     (?,?,?)`;
     const insertData = [
-      "palestrante_id",
+      "id",
       "nome",
       "expertise",
       id,
@@ -42,9 +41,9 @@ export const postPalestrantes = (request, response) => {
     conn.query(insertSQL, insertData, (err) => {
       if (err) {
         console.error(err);
-        response.status(500).json({ message: "erro ao Cadastrar palestrante" });
+        res.status(500).json({ message: "erro ao Cadastrar palestrante" });
         return;
       }
-      response.status(201).json({ message: "palestrante cadastrado com sucesso" });
+      res.status(201).json({ message: "palestrante cadastrado com sucesso" });
     })
 }
